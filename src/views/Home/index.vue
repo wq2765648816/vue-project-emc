@@ -17,7 +17,7 @@
           </router-link>
         </van-col>
         <van-col span="8">
-          <router-link to="/" class="nav">
+          <router-link to="/consult/fast" class="nav">
             <cp-icon name="home-graphic" width="48px" height="48px"></cp-icon>
             <p class="title">极速问诊</p>
             <p class="desc">20s医生极速回复</p>

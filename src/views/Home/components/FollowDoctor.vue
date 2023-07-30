@@ -25,8 +25,6 @@ const list = reactive<TS.HomePageDocList>({
 const loadData = async () => {
   const res = await getHomePageDoc({ current: 1, pageSize: 5 })
   list.list = res.data.rows
-  console.log(res)
-  console.log(list.list)
 }
 onMounted(() => loadData())
 </script>

@@ -98,11 +98,13 @@ const { loading, follow } = useFollow('Knowledge')
     display: flex;
     margin-top: 7px;
     justify-content: space-between;
-    ::v-deep .van-image {
-      width: 108px;
-      height: 108px;
-      border-radius: 15px;
-      overflow: hidden;
+    ::v-deep() {
+      .van-image {
+        width: 108px;
+        height: 108px;
+        border-radius: 15px;
+        overflow: hidden;
+      }
     }
   }
   footer {

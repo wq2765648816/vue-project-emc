@@ -40,7 +40,6 @@ const onLoad = async () => {
   // 异步更新数据
   // setTimeout 仅做示例，真实场景中一般为 ajax 请求
   let res = await patientKnowledge(pageData)
-  console.log(res)
   let { code, data } = res
   if (code == TT.STATUS.SUCCESS) {
     total.value = data.total

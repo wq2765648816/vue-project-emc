@@ -24,6 +24,7 @@ interface RootObject {
 
 // 获取关注的医生列表
 interface HomePageDocParams {
+  type?: string
   current: number
   pageSize: number
 }
@@ -194,7 +195,60 @@ interface patientDataresdata {
   data?: patientDatares
 }
 
+// 问诊记录
+interface getConsultListPatientInfo {
+  name: string
+  idCard: string
+  gender: number
+  genderValue: string
+  age: number
+  id: string
+}
+
+interface getConsultListDocInfo {
+  name: string
+}
+
+interface getConsultListRow {
+  id: string
+  orderNo: string
+  type: string
+  typeValue: string
+  createTime: string
+  patientInfo: getConsultListPatientInfo
+  illnessDesc: string
+  docInfo: getConsultListDocInfo
+  status: number
+  statusValue: string
+  cancelReason: string
+  cancelReasonValue: string
+  cancelProcess: string
+  payment: number
+  evaluateId?: any
+  illnessTime: number
+  consultFlag: number
+}
+
+interface getConsultListlist {
+  list: getConsultListRow[]
+}
+
+interface getConsultListData {
+  total: number
+  pageTotal: number
+  rows: getConsultListRow[]
+}
+
+interface getConsultListRootObject {
+  code: number
+  message: string
+  data: getConsultListData
+}
+
 export type {
+  getConsultListRow,
+  getConsultListRootObject,
+  getConsultListlist,
   patientDatares,
   patientDataresdata,
   patientData,

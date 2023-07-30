@@ -22,7 +22,7 @@
     "vant": "^4.6.3",
     "vue": "^3.3.4",
     "vue-devtools": "^5.1.4",
-    "vue-router": "^4.2.2"
+    "vue-router": "4.0.10"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",

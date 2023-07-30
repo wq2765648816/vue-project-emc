@@ -50,3 +50,9 @@ export const delPatientDel = (params: TS.patientDatares) =>
   http
     .delete<TS.getPatientMylistData>(`/patient/del/${params.id}`)
     .then((res) => res.data)
+
+// 问诊记录-订单列表-找医生/patient/consult/order/list
+export const getConsultList = (params: TS.HomePageDocParams) =>
+  http
+    .get<TS.getConsultListRootObject>('/patient/consult/order/list', params)
+    .then((res) => res.data)

@@ -30,7 +30,7 @@
     <div class="user-order">
       <div class="head">
         <h3>药品订单</h3>
-        <router-link to="/order">
+        <router-link to="/user">
           全部订单 <van-icon name="arrow" />
         </router-link>
       </div>
@@ -96,7 +96,6 @@ import router from '@/router'
 const userData = ref<TS.getPatientmyUserData>()
 onMounted(async () => {
   const res = await getPatientmyUser()
-  console.log(res)
   let { code, data, message } = res
   if (code == TT.STATUS.SUCCESS) {
     userData.value = data
@@ -106,7 +105,7 @@ onMounted(async () => {
 })
 
 const tools = [
-  { label: '我的问诊', path: '' },
+  { label: '我的问诊', path: '/user/consult' },
   { label: '我的处方', path: '' },
   { label: '家庭档案', path: '/user/patient' },
   { label: '地址管理', path: '' },
