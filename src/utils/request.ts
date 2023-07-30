@@ -1,15 +1,18 @@
 import axios, {
   type AxiosInstance,
-  type AxiosError,
+  AxiosError,
   type AxiosRequestConfig,
   type AxiosResponse
 } from 'axios'
 import { showDialog } from 'vant'
 import router from '@/router/index'
 import * as TS from './defind'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
 // 先导入vuex,因为我们要使用到里面的状态对象
 // vuex的路径根据自己的路径去写
-import { userStore } from '../stores'
+import { useUserStore } from '@/stores'
+
 // 数据返回的接口
 
 const URL: string = ''
@@ -19,9 +22,9 @@ const config = {
   // 默认地址
   baseURL: URL as string,
   // 设置超时时间
-  timeout: TS.RequestEnums.TIMEOUT as number,
+  timeout: TS.RequestEnums.TIMEOUT as number
   // 跨域时候允许携带凭证
-  withCredentials: false
+  // withCredentials: true
 }
 
 /**用类名注释类的对象 */
@@ -39,11 +42,16 @@ class RequestHttp {
      */
     this.service.interceptors.request.use(
       (config) => {
+        NProgress.start()
         // 添加token
         //@ts-ignore
         /**去了公司可以根据接口文档实际更改 */
         //@ts-ignore
-        config.headers['Authorization'] = userStore.user.token
+        const store = useUserStore()
+        if (store.user?.token) {
+          config.headers['Authorization'] = `Bearer ` + store.user.token
+        }
+        // console.dir(store.user.token, 'store')
         return config
       },
       (error: AxiosError) => {
@@ -58,24 +66,25 @@ class RequestHttp {
 
     this.service.interceptors.response.use(
       (response: AxiosResponse) => {
-        const { data, config } = response // 解构
+        // const { data } = response // 解构
+        NProgress.done()
         /**
          * token 过期了,需要我们重新返回登录页面
          * meta.status,根据实际打印出的东西做更改
          */
-        if (data.meta.status === TS.RequestEnums.UNAUTHORIZED) {
+        if (response.data.meta?.status === TS.RequestEnums.UNAUTHORIZED) {
           // 登录信息失效，应跳转到登录页面，并清空本地的token
-          userStore.delUser()
+          const store = useUserStore()
+          store.delUser()
           router.replace('/login')
-          return Promise.reject(data)
+          return Promise.reject(response)
         } // 全局错误信息拦截（防止下载文件得时候返回数据流，没有code，直接报错）
-        return data
+        return response
       },
       (error: AxiosError) => {
         const { response } = error
         let title: string = ''
         let message: string = ''
-
         if (error && response) {
           message = response.statusText
           // 401, token失效
@@ -133,10 +142,9 @@ class RequestHttp {
      * VUE_APP_BASE_API根据公司时间情况做修改
      * 如果你的公司没有封装多环境,这块就不用动了,封装多环境后,修改封装后的
      */
-    // return !process.env.VUE_APP_BASE_API
-    //   ? url
-    //   : process.env.VUE_APP_BASE_API + url
-    return url
+    return !import.meta.env.VITE_API_BASE_API
+      ? url
+      : import.meta.env.VITE_API_BASE_API + url
   }
 
   // 常用方法封装

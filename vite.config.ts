@@ -1,5 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
-
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -20,6 +21,13 @@ export default defineConfig({
       dts: false,
       // 原因：Toast Confirm 这类组件的样式还是需要单独引入，样式全局引入了，关闭自动引入
       resolvers: [VantResolver({ importStyle: false })]
+    }),
+    createSvgIconsPlugin({
+      // 图标文件夹为src/assets/icons、
+      /*global process*/
+      iconDirs: [path.resolve(process.cwd(), 'src/icons')],
+      // 指定symbolId格式
+      symbolId: 'icon-[dir]-[name]'
     })
   ],
   resolve: {

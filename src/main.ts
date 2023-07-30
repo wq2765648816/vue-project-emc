@@ -1,23 +1,20 @@
 import './assets/main.css'
-
+import { createPinia } from 'pinia'
 import { createApp } from 'vue'
-import pinia from './stores'
-
+import CpIcon from '@/components/CpIcon.vue'
 import App from './App.vue'
 import router from './router'
-
+import persist from 'pinia-plugin-persistedstate'
+import 'virtual:svg-icons-register'
 // 引入vant
 import 'vant/lib/index.css'
 // 引入全局样式
 import './styles/main.scss'
 // vant 使用提示
 import {} from 'vant'
-// pinia持久化插件
-import persist from 'pinia-plugin-persistedstate'
 
 const app = createApp(App)
-app.use(pinia.use(persist))
-app.use(pinia)
+app.component('CpIcon', CpIcon)
 app.use(router)
-
+app.use(createPinia().use(persist))
 app.mount('#app')
