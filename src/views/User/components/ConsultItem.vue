@@ -44,16 +44,12 @@
     </div>
     <div class="footed" v-if="item.status === OrderType.ConsultComplete">
       <div class="popover">
-        <van-popover
-          v-model:show="showPopover"
-          placement="top-start"
-          :actions="actions"
-          @select="onSelect"
-          class="mote"
-        >
-          <div v-for="(item, index) in actions" :key="index"></div>
-          <template #reference> 更多 </template>
-        </van-popover>
+        <!-- 更多组件 -->
+        <ConsultMore
+          :disabled="!item.prescriptionId"
+          @on-preview="onPreview"
+          @on-delete="onDelete"
+        ></ConsultMore>
       </div>
 
       <van-button plain round size="small" class="btn" type="default"
@@ -75,14 +71,14 @@
 <script setup lang="ts">
 import * as TS from '@/api/TS'
 import { OrderType } from '@/enums'
-import { ref } from 'vue'
-import { showToast } from 'vant'
+import ConsultMore from './ConsultMore.vue'
 defineProps<{
   item: TS.getConsultListRow
 }>()
-const showPopover = ref(false)
-const actions = [{ text: '查看处方', disabled: true }, { text: '删除订单' }]
-const onSelect = (action: string) => showToast(action)
+// 查看处方
+const onPreview = () => {}
+// 删除订单
+const onDelete = () => {}
 </script>
 
 <style lang="scss" scoped>

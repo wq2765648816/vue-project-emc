@@ -56,3 +56,7 @@ export const getConsultList = (params: TS.HomePageDocParams) =>
   http
     .get<TS.getConsultListRootObject>('/patient/consult/order/list', params)
     .then((res) => res.data)
+
+// 获取选择科室列表/dep/all
+export const getDepAll = () =>
+  http.get<TS.depRootObject>('/dep/all').then((res) => res.data)

@@ -227,6 +227,7 @@ interface getConsultListRow {
   evaluateId?: any
   illnessTime: number
   consultFlag: number
+  prescriptionId?: string
 }
 
 interface getConsultListlist {
@@ -245,7 +246,33 @@ interface getConsultListRootObject {
   data: getConsultListData
 }
 
+// 获取选择科室数据
+interface depChild {
+  id: string
+  name: string
+  avatar: string
+}
+
+interface depData {
+  id: string
+  name: string
+  child: depChild[]
+}
+
+interface depDataList {
+  lists: depData[]
+}
+
+interface depRootObject {
+  code: number
+  message: string
+  data: depData[]
+}
+
 export type {
+  depDataList,
+  depData,
+  depRootObject,
   getConsultListRow,
   getConsultListRootObject,
   getConsultListlist,
