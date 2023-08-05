@@ -13,7 +13,7 @@
         >{{ item.statusValue }}</span
       >
     </div>
-    <div class="body">
+    <div class="body" @click="$router.push(`/user/consult/${item.id}`)">
       <div class="body-row">
         <div class="body-label">病情描述</div>
         <div class="body-value">{{ item.illnessDesc }}</div>
@@ -31,7 +31,14 @@
       <van-button plain round size="small" class="btn" type="default"
         >取消问诊</van-button
       >
-      <van-button plain round size="small" type="primary">去支付</van-button>
+      <van-button
+        plain
+        round
+        size="small"
+        type="primary"
+        @click="$router.push(`/user/consult/${item.id}`)"
+        >去支付</van-button
+      >
     </div>
     <div class="footed" v-if="item.status === OrderType.ConsultWait">
       <van-button plain round size="small" class="btn" type="default"

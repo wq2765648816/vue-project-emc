@@ -26,7 +26,7 @@ interface ResultData<T = any> extends Result {
 /**定义返回状态码 */
 enum RequestEnums {
   /**超时时间 */
-  TIMEOUT = 3000,
+  TIMEOUT = 5000,
   SUCCESS = 200, // 请求成功
   CREATE = 201, // 创建成功
   DELETED = 204, // 删除成功

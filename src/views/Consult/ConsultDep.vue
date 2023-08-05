@@ -42,7 +42,6 @@ onMounted(async () => {
   } else {
     showFailToast(message)
   }
-  console.log(res)
 })
 
 const SonList = computed(() => list.lists[active.value]?.child)

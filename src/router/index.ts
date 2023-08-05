@@ -21,6 +21,11 @@ const router = createRouter({
       component: () => import('@/views/User/PatientPage.vue')
     },
     {
+      path: '/user/consult/:id',
+      meta: { title: '问诊详情' },
+      component: () => import('@/views/User/ConsultDetail.vue')
+    },
+    {
       path: '/user/consult',
       meta: { title: '问诊记录' },
       component: () => import('@/views/User/ConsultPage.vue')
@@ -39,6 +44,20 @@ const router = createRouter({
       path: '/consult/illness',
       meta: { title: '图文问诊' },
       component: () => import('@/views/Consult/ConsultIllness.vue')
+    },
+    {
+      path: '/consult/pay',
+      meta: { title: '支付问诊' },
+      component: () => import('@/views/Consult/ConsultPay.vue')
+    },
+    {
+      path: '/room',
+      meta: { title: '问诊室' },
+      component: () => import('@/views/Room/index.vue'),
+      beforeEnter(to) {
+        console.log(to)
+        if (to.query.payResult === 'false') return '/user/consult'
+      }
     },
     {
       path: '/',

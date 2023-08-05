@@ -1,5 +1,4 @@
-import type { KnowledgeType } from '@/types/consult'
-
+import type { KnowledgeType, Patient, ConsultOrderItem } from '@/types/consult'
 // 用户账号密码
 interface UserFrom {
   password: string | number
@@ -194,6 +193,11 @@ interface patientDataresdata {
   message: string
   data?: patientDatares
 }
+interface patientDataresdataRes {
+  code: number
+  message: string
+  data: patientDatares
+}
 
 // 问诊记录
 interface getConsultListPatientInfo {
@@ -269,7 +273,94 @@ interface depRootObject {
   data: depData[]
 }
 
+// 上传图片
+interface uploadData {
+  id: string
+  url: string
+}
+
+interface uploadRootObject {
+  code: number
+  message: string
+  data: uploadData
+}
+
+// 问诊-支付页面-计算就诊信息和抵扣信息
+interface getPatientPreData {
+  payment: number
+  couponDeduction: number
+  couponId?: any
+  pointDeduction: number
+  actualPayment: number
+}
+
+interface getPatientPreRootObject {
+  code: number
+  message: string
+  data: getPatientPreData
+}
+
+interface LoadRootObject {
+  code: number
+  message: string
+  data: Patient
+}
+
+export interface UrlData {
+  payUrl: string
+}
+
+export interface UrlRootObject {
+  code: number
+  message: string
+  data: UrlData
+}
+
+export interface PatientInfo {
+  name: string
+  idCard: string
+  gender: number
+  genderValue: string
+  age: number
+  id: string
+}
+
+interface ressData {
+  id: string
+  orderNo: string
+  type: string
+  createTime: string
+  patientInfo: PatientInfo
+  illnessDesc: string
+  recordId: string
+  status: number
+  statusValue: string
+  cancelProcess?: any
+  countdown: number
+  payment: number
+  pointDeduction: number
+  couponDeduction: number
+  actualPayment: number
+  creator: string
+  evaluateFlag: number
+  pictures: any[]
+  illnessTime: number
+  consultFlag: number
+}
+
+interface ressDataRootObject {
+  code: number
+  message: string
+  data: ConsultOrderItem
+}
+
 export type {
+  ressDataRootObject,
+  patientDataresdataRes,
+  LoadRootObject,
+  getPatientPreData,
+  getPatientPreRootObject,
+  uploadRootObject,
   depDataList,
   depData,
   depRootObject,
